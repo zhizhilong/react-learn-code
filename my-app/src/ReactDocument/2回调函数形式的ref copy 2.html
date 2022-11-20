@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>1_字符串形式的ref</title>
+  </head>
+  <body>
+    <!-- 准备好一个“容器” -->
+    <div id="test"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Reservation extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = {
+            isGoing: true,
+            numberOfGuests: 2,
+          }
+
+          this.handleInputChange = this.handleInputChange.bind(this)
+        }
+
+        handleInputChange(event) {
+          const target = event.target
+          const value =
+            target.name === 'isGoing' ? target.checked : target.value
+          const name = target.name
+
+          this.setState({
+            [name]: value,
+          })
+        }
+
+        render() {
+          return (
+            <form>
+              <label>
+                参与:
+                <input
+                  name="isGoing"
+                  type="checkbox"
+                  checked={this.state.isGoing}
+                  onChange={this.handleInputChange}
+                />
+              </label>
+              <br />
+              <label>
+                来宾人数:
+                <input
+                  name="numberOfGuests"
+                  type="number"
+                  value={this.state.numberOfGuests}
+                  onChange={this.handleInputChange}
+                />
+              </label>
+            </form>
+          )
+        }
+      }
+      //渲染组件到页面
+      ReactDOM.render(<Reservation />, document.getElementById('test'))
+    </script>
+  </body>
+</html>
